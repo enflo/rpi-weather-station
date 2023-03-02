@@ -3,3 +3,6 @@ ipython
 
 # Air Quality Monitor
 py-sds011
+
+# Temperature and Humidity
+adafruit-circuitpython-dht
