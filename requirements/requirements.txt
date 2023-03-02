@@ -1,0 +1,8 @@
+# Python
+ipython
+
+# Base
+pyserial
+
+# Air Quality Monitor
+sds011==0.2.0
