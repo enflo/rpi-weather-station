@@ -6,10 +6,16 @@ class AirQualityMonitor:
 
     def __init__(self):
         self.sds = SDS011(port='/dev/ttyUSB0')
-        self.sds.set_working_period(rate=1)
+        self.sds.set_work_period(work_time=15)
 
     def get_measurement(self):
+        pm25, pm10 = self.get_pm25_pm10()
         return {
             'time': int(time.time()),
-            'measurement': self.sds.read_measurement(),
+            "pm25": pm25,
+            "pm10": pm10,
         }
+
+    def get_pm25_pm10(self):
+        pm25, pm10 = self.sds.query()
+        return pm25, pm10
