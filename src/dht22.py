@@ -1,11 +1,7 @@
-import board
-import adafruit_dht
-
-
 class TemperatureHumidityMonitor:
 
-    def __init__(self):
-        self.dht = adafruit_dht.DHT22(board.D4, False)
+    def __init__(self, dht):
+        self.dht = dht
 
     def get_measurement(self):
         temperature_f, temperature_c, humidity = self.get_temperature_humidity()
