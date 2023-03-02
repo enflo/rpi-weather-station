@@ -23,7 +23,6 @@ class TemperatureHumidityMonitor:
             return temperature_f, temperature_c, humidity
         except RuntimeError as error:
             # Errors happen fairly often, DHT's are hard to read, just keep going
-            raise error
+            print(error)
         except Exception as error:
-            self.dht.exit()
-            raise error
+            print(error)
