@@ -21,4 +21,4 @@ if __name__ == "__main__":
     while True:
         result = get_weather()
         print(result)
-        time.sleep(60)
+        time.sleep(5)
