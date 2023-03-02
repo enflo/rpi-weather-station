@@ -1,7 +1,11 @@
+import board
+import adafruit_dht
+
+
 class TemperatureHumidityMonitor:
 
-    def __init__(self, dht):
-        self.dht = dht
+    def __init__(self):
+        self.dht = adafruit_dht.DHT22(board.D4, False)
 
     def get_measurement(self):
         temperature_f, temperature_c, humidity = self.get_temperature_humidity()
@@ -22,7 +26,8 @@ class TemperatureHumidityMonitor:
         except RuntimeError as error:
             # Errors happen fairly often, DHT's are hard to read, just keep going
             print(error)
+            self.dht.exit()
         except Exception as error:
             print(error)
-        self.dht.exit()
+            self.dht.exit()
         return temperature_f, temperature_c, humidity
