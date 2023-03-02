@@ -1,5 +1,3 @@
-import sys
-import time
 from sds011 import SDS011
 
 
@@ -12,12 +10,10 @@ class AirQualityMonitor:
     def get_measurement(self):
         pm25, pm10 = self.get_pm25_pm10()
         return {
-            'time': int(time.time()),
             "pm25": pm25,
             "pm10": pm10,
         }
 
     def get_pm25_pm10(self):
         pm25, pm10 = self.sds.query()
-        sys.stdout.flush()
         return pm25, pm10
