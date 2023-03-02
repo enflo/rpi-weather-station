@@ -1,8 +1,5 @@
 # Python
 ipython
 
-# Base
-pyserial
-
 # Air Quality Monitor
 py-sds011
