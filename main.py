@@ -18,7 +18,5 @@ def get_weather() -> dict:
 
 
 if __name__ == "__main__":
-    while True:
-        result = get_weather()
-        print(result)
-        time.sleep(5)
+    result = get_weather()
+    print(result)
