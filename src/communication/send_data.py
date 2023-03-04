@@ -9,9 +9,12 @@ def send_data(data):
     """
 
     if API_ENABLE:
+        print('api enabled')
         SendDataAPI(data).send()
 
     if MQTT_ENABLE:
+        print('mqtt enabled')
         SendDataMQTT(data).send()
 
+    print('console print')
     print(data)
