@@ -9,6 +9,7 @@ load_dotenv(dotenv_path=env_path)
 
 
 ENVIRONMENT = os.getenv("ENVIRONMENT", "development")
+LOOP_TIME = int(os.getenv("LOOP_TIME", 1))
 
 # API CONFIG
 API_ENABLE = os.getenv("API_CONFIG", False)
