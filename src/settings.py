@@ -4,7 +4,9 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 env_path = Path('../', '.env')
+print("path", env_path)
 load_dotenv(dotenv_path=env_path)
+
 
 ENVIRONMENT = os.getenv("ENVIRONMENT", "development")
 
