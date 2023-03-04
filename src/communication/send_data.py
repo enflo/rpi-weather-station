@@ -16,5 +16,7 @@ def send_data(data):
         print('mqtt enabled')
         SendDataMQTT(data).send()
 
+    print("mqtt??", MQTT_ENABLE)
+    print("api??", API_ENABLE)
     print('console print')
     print(data)
