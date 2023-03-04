@@ -1,0 +1,11 @@
+[Unit]
+Description=My Weather Station RPI
+After=multi-user.target
+
+[Service]
+Type=simple
+Restart=always
+ExecStart=<python3_path> <file_path>/main.py
+
+[Install]
+WantedBy=multi-user.target

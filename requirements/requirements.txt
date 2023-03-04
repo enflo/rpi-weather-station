@@ -1,5 +1,8 @@
 # Python
 ipython
+python-dotenv
+requests
+paho-mqtt
 
 # Air Quality Monitor
 py-sds011
