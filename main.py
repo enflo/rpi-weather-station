@@ -1,5 +1,5 @@
 import time
-
+import RPI.GPIO as GPIO
 from src.sensors.dht22 import TemperatureHumidityMonitor
 from src.sensors.sds011 import AirQualityMonitor
 from src.settings import LOOP_TIME
@@ -24,3 +24,4 @@ if __name__ == "__main__":
         result = get_weather()
         send_data(result)
         time.sleep(LOOP_TIME * 60)
+        GPIO.cleanup()

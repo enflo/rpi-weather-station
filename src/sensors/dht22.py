@@ -1,3 +1,5 @@
+import time
+
 import board
 import adafruit_dht
 
@@ -24,8 +26,8 @@ class TemperatureHumidityMonitor:
             humidity = self.dht.humidity
         except RuntimeError as error:
             # Errors happen fairly often, DHT's are hard to read, just keep going
-            print(error)
-            self.dht.exit()
+            print(error.args[0])
+            time.sleep(2.0)
         except Exception as error:
             print(error)
             self.dht.exit()

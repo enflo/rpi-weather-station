@@ -4,6 +4,9 @@ python-dotenv
 requests
 paho-mqtt
 
+# RPI
+RPi.GPIO
+
 # Air Quality Monitor
 py-sds011
 
