@@ -20,7 +20,7 @@ API_URL_TOKEN = os.getenv("API_URL_TOKEN", "")
 # MQTT CONFIG
 MQTT_ENABLE = os.getenv("MQTT_ENABLE", False)
 MQTT_HOST = os.getenv("MQTT_HOST", "localhost")
-MQTT_PORT = os.getenv("MQTT_PORT", 1883)
+MQTT_PORT = int(os.getenv("MQTT_PORT", 1883))
 MQTT_TOPIC = os.getenv("MQTT_TOPIC", "topic")
 MQTT_USER = os.getenv("MQTT_USER", "user")
 MQTT_PASSWORD = os.getenv("MQTT_PASSWORD", "password")
