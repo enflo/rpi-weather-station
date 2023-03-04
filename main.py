@@ -1,5 +1,5 @@
 import time
-import RPI.GPIO as GPIO
+import RPi.GPIO as GPIO
 from src.sensors.dht22 import TemperatureHumidityMonitor
 from src.sensors.sds011 import AirQualityMonitor
 from src.settings import LOOP_TIME
