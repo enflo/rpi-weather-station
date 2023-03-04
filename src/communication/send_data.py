@@ -1,6 +1,6 @@
 from src.settings import API_ENABLE, MQTT_ENABLE
-from api import SendDataAPI
-from mqtt import SendDataMQTT
+from src.communication.api import SendDataAPI
+from src.communication.mqtt import SendDataMQTT
 
 
 def send_data(data):
