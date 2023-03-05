@@ -2,7 +2,6 @@
 ipython
 python-dotenv
 requests
-paho-mqtt
 
 # RPI
 RPi.GPIO
