@@ -31,4 +31,5 @@ class TemperatureHumidityMonitor:
         except Exception as error:
             print(error)
             self.dht.exit()
+        self.dht.exit()
         return temperature_f, temperature_c, humidity
