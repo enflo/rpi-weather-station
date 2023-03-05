@@ -11,6 +11,7 @@ class TemperatureHumidityMonitor:
     def get_measurement(self):
         temperature_f, temperature_c, humidity = self.get_temperature_humidity()
         return {
+            "sensor_temp_hum": "dht22",
             "temperature_farenheit": temperature_f,
             "temperature_celsius": temperature_c,
             "humidity": humidity,

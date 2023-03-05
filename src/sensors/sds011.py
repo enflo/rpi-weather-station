@@ -9,6 +9,7 @@ class AirQualityMonitor:
     def get_measurement(self):
         pm25, pm10 = self.get_pm25_pm10()
         return {
+            "sensor_air_quality": "sds011",
             "pm25": pm25,
             "pm10": pm10,
         }
