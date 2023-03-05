@@ -6,7 +6,7 @@ import adafruit_dht
 
 class TemperatureHumidityMonitor:
     def __init__(self):
-        self.dht = adafruit_dht.DHT22(board.D4, False)
+        self.dht = adafruit_dht.DHT22(board.D4, True)
 
     def get_measurement(self):
         temperature_f, temperature_c, humidity = self.get_temperature_humidity()
@@ -31,5 +31,4 @@ class TemperatureHumidityMonitor:
         except Exception as error:
             print(error)
             self.dht.exit()
-        self.dht.exit()
         return temperature_f, temperature_c, humidity
