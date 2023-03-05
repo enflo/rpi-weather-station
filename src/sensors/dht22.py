@@ -10,7 +10,6 @@ class TemperatureHumidityMonitor:
 
     def get_measurement(self):
         temperature_f, temperature_c, humidity = self.get_temperature_humidity()
-        self.dht.exit()
         return {
             "temperature_farenheit": temperature_f,
             "temperature_celsius": temperature_c,
@@ -31,5 +30,4 @@ class TemperatureHumidityMonitor:
             time.sleep(2.0)
         except Exception as error:
             print(error)
-            self.dht.exit()
         return temperature_f, temperature_c, humidity
