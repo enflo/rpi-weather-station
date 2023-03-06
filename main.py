@@ -1,6 +1,7 @@
 import time
-from src.sensors.dht22 import TemperatureHumidityMonitor
-from src.sensors.sds011 import AirQualityMonitor
+
+from src.sensors.sds011 import SDS011Sensor
+from src.sensors.bme280sensor import BME280Sensor
 from src.settings import LOOP_TIME
 from src.communication.send_data import send_data
 
@@ -9,11 +10,11 @@ def get_weather() -> dict:
     weather = {
         "timestamp": time.time(),
     }
-    air_quality = AirQualityMonitor().get_measurement()
-    temperature_humidity = TemperatureHumidityMonitor().get_measurement()
+    air_quality = SDS011Sensor().get_measurement()
+    temperature_humidity_pressure = BME280Sensor().get_measurement()
 
     weather.update(air_quality)
-    weather.update(temperature_humidity)
+    weather.update(temperature_humidity_pressure)
 
     return weather
 

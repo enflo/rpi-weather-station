@@ -1,7 +1,7 @@
 from sds011 import SDS011
 
 
-class AirQualityMonitor:
+class SDS011Sensor:
     def __init__(self):
         self.sds = SDS011("/dev/ttyUSB0")
         self.sds.set_work_period(work_time=15)

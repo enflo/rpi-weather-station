@@ -4,7 +4,7 @@ import board
 import adafruit_dht
 
 
-class TemperatureHumidityMonitor:
+class DHT22Sensor:
     def __init__(self):
         self.dht = adafruit_dht.DHT22(board.D4, False)
 
