@@ -20,7 +20,7 @@ class SendDataMQTT:
         client.tls_set()
         client.username_pw_set(MQTT_USER, MQTT_PASSWORD)
         print(MQTT_HOST, MQTT_PORT)
-        client.connect('mqtt.toniflorithomar.dev', int(MQTT_PORT), 30)
+        client.connect('mqtt.toniflorithomar.dev', 443, 30)
         return client
 
     @staticmethod
