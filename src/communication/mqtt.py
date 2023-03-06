@@ -18,8 +18,7 @@ class SendDataMQTT:
     def _mqtt_client():
         client = mqtt.Client(transport="websockets")
         client.tls_set()
-        client.username_pw_set(MQTT_USER, MQTT_PASSWORD)
-        print(MQTT_HOST, MQTT_PORT)
+        client.username_pw_set("mqttrpi", "Toni240393")
         client.connect('mqtt.toniflorithomar.dev', 443, 30)
         return client
 
