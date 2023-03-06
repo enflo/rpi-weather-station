@@ -2,7 +2,7 @@ import time
 
 from src.communication.send_data import send_data
 from src.sensors.bme280sensor import BME280Sensor
-from src.sensors.sds011 import SDS011Sensor
+from src.sensors.sds011sensor import SDS011Sensor
 from src.settings import LOOP_TIME
 
 
