@@ -2,15 +2,13 @@
 ipython
 python-dotenv
 requests
+pyserial
 
-# RPI
-RPi.GPIO
-
-# Air Quality Monitor
+# Sensors
 py-sds011
-
-# Temperature and Humidity
 adafruit-circuitpython-dht
+smbus2
+adafruit-circuitpython-bme280
 
 # Code Quality & Formatting
 black

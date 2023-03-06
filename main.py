@@ -1,9 +1,9 @@
 import time
 
-from src.sensors.sds011 import SDS011Sensor
-from src.sensors.bme280sensor import BME280Sensor
-from src.settings import LOOP_TIME
 from src.communication.send_data import send_data
+from src.sensors.bme280sensor import BME280Sensor
+from src.sensors.sds011 import SDS011Sensor
+from src.settings import LOOP_TIME
 
 
 def get_weather() -> dict:
