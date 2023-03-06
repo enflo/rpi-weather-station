@@ -19,7 +19,7 @@ class SendDataMQTT:
         client = mqtt.Client(transport="websockets")
         client.tls_set()
         client.username_pw_set(MQTT_USER, MQTT_PASSWORD)
-        client.connect(MQTT_HOST, MQTT_PORT, 30)
+        client.connect(MQTT_HOST, int(MQTT_PORT), 30)
         return client
 
     @staticmethod
