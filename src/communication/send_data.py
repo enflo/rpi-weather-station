@@ -14,4 +14,3 @@ def send_data(data):
         SendDataMQTT(data).send()
     else:
         print(data)
-

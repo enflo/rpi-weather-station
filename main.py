@@ -23,4 +23,4 @@ if __name__ == "__main__":
     while True:
         result = get_weather()
         send_data(result)
-        time.sleep(LOOP_TIME * 60)
+        time.sleep((LOOP_TIME * 60 * 60) / 4)  # 15 minutes

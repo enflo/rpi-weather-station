@@ -8,7 +8,10 @@ pyserial
 py-sds011
 adafruit-circuitpython-dht
 smbus2
-adafruit-circuitpython-bme280
+adafruit-circuitpython-bme280==2.6.20
 
 # Code Quality & Formatting
-black
+black==23.3.0
+
+# MQTT
+paho-mqtt
