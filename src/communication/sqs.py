@@ -1,3 +1,5 @@
+import json
+
 import boto3
 from src.settings import SQS_REGION, SQS_QUEUE_NAME, SQS_URL, SQS_ACCESS_KEY, SQS_SECRET_KEY
 
@@ -27,6 +29,7 @@ class SQSClient:
 
     @staticmethod
     def _publish(queue, payload) -> None:
-        response = queue.send_message(MessageBody=payload)
+        str_json_payload = json.loads(payload)
+        response = queue.send_message(MessageBody=str_json_payload)
         print(response.get('MessageId'))
         print(response.get('MD5OfMessageBody'))
