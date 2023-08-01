@@ -1,0 +1,7 @@
+-r requirements.txt
+
+# Code Quality & Formatting
+black==23.7.0
+flake8==6.1.0
+mypy==1.4.1
+isort==5.12.0

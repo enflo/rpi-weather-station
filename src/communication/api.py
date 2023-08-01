@@ -1,5 +1,6 @@
 import requests
-from src.settings import API_HOST, API_HEADER_TOKEN, API_URL_TOKEN, API_METHOD
+
+from src.settings import API_HEADER_TOKEN, API_HOST, API_METHOD, API_URL_TOKEN
 
 
 class SendDataAPI:

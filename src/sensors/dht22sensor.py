@@ -1,7 +1,7 @@
 import time
 
-import board
 import adafruit_dht
+import board
 
 
 class DHT22Sensor:

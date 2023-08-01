@@ -1,17 +1,15 @@
 # Python
-ipython
-python-dotenv
-requests
-pyserial
+ipython==8.14.0
+python-dotenv==1.0.0
+requests==2.31.0
+pyserial==3.5
+certifi==2023.7.22
 
 # Sensors
-py-sds011
-adafruit-circuitpython-dht
-smbus2
-adafruit-circuitpython-bme280==2.6.20
-
-# Code Quality & Formatting
-black==23.3.0
+py-sds011==0.9
+adafruit-circuitpython-dht==4.0.2
+smbus2==0.4.2
+adafruit-circuitpython-bme280==2.6.22
 
 # MQTT
-paho-mqtt
+paho-mqtt==1.6.1

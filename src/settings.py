@@ -25,3 +25,8 @@ MQTT_PORT = os.getenv("MQTT_PORT", 1883)
 MQTT_TOPIC = os.getenv("MQTT_TOPIC", "topic")
 MQTT_USER = os.getenv("MQTT_USER", "user")
 MQTT_PASSWORD = os.getenv("MQTT_PASSWORD", "password")
+
+# NATS CONFIG
+NATS_ENABLE = os.getenv("NATS_ENABLE", False)
+NATS_DSN = os.getenv("NATS_DSN", "nats://localhost:4222")
+NATS_CREDETIALS = os.getenv("NATS_CREDETIALS", None)

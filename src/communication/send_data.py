@@ -1,6 +1,6 @@
-from src.settings import API_ENABLE, MQTT_ENABLE
 from src.communication.api import SendDataAPI
 from src.communication.mqtt import SendDataMQTT
+from src.settings import API_ENABLE, MQTT_ENABLE
 
 
 def send_data(data):
@@ -12,5 +12,7 @@ def send_data(data):
         SendDataAPI(data).send()
     elif MQTT_ENABLE:
         SendDataMQTT(data).send()
+    elif NATS_ENABLE:
+        SendDataNATS(data).send()
     else:
         print(data)

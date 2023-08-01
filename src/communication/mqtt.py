@@ -1,7 +1,8 @@
 import json
+
 import paho.mqtt.client as mqtt
 
-from src.settings import MQTT_HOST, MQTT_PORT, MQTT_TOPIC, MQTT_USER, MQTT_PASSWORD
+from src.settings import MQTT_HOST, MQTT_PASSWORD, MQTT_TOPIC, MQTT_USER
 
 
 class SendDataMQTT:
