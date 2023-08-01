@@ -8,7 +8,7 @@ class SQSClient:
         self.data = data
 
     def send(self):
-        queue = self._create_queue()
+        queue = self._get_queue()
         self._publish(queue, self.data)
 
     @staticmethod
@@ -21,9 +21,11 @@ class SQSClient:
             region_name=SQS_REGION,
         )
 
-    def _create_queue(self):
-        return self._sqs_client().create_queue(QueueName=SQS_QUEUE_NAME)
+    def _get_queue(self):
+        return self._sqs_client().get_queue_by_name(QueueName=SQS_QUEUE_NAME)
 
     @staticmethod
     def _publish(queue, payload) -> None:
-        queue.send_message(MessageBody=payload)
+        response = queue.send_message(MessageBody=payload)
+        print(response.get('MessageId'))
+        print(response.get('MD5OfMessageBody'))
