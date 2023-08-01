@@ -29,7 +29,6 @@ class SQSClient:
 
     @staticmethod
     def _publish(queue, payload) -> None:
-        str_json_payload = json.dumps(payload)
-        response = queue.send_message(MessageBody=str_json_payload)
-        print(response.get('MessageId'))
-        print(response.get('MD5OfMessageBody'))
+        if type(payload) is dict:
+            payload = json.dumps(payload)
+        queue.send_message(MessageBody=payload)
