@@ -29,7 +29,7 @@ class SQSClient:
 
     @staticmethod
     def _publish(queue, payload) -> None:
-        str_json_payload = json.loads(payload)
+        str_json_payload = json.dumps(payload)
         response = queue.send_message(MessageBody=str_json_payload)
         print(response.get('MessageId'))
         print(response.get('MD5OfMessageBody'))
