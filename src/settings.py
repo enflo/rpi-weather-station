@@ -28,7 +28,7 @@ MQTT_PASSWORD = os.getenv("MQTT_PASSWORD", "password")
 # SQS CONFIG
 SQS_ENABLE = os.getenv("SQS_ENABLE", False)
 SQS_URL = os.getenv("SQS_URL", "http://localhost:9324")
-SQS_ACCESS_KEY = os.getenv("SQS_ACESS_KEY", "access_key")
+SQS_ACCESS_KEY = os.getenv("SQS_ACCESS_KEY", "access_key")
 SQS_SECRET_KEY = os.getenv("SQS_SECRET_KEY", "secret_key")
 SQS_QUEUE_NAME = os.getenv("SQS_QUEUE_NAME", "queue_name")
 SQS_REGION = os.getenv("SQS_REGION", "fr-par")
