@@ -4,7 +4,6 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 dotenv_path = Path("/home/pi/rpi-weather-station/.env")
-print(dotenv_path)
 load_dotenv(dotenv_path=dotenv_path)
 
 
@@ -26,7 +25,11 @@ MQTT_TOPIC = os.getenv("MQTT_TOPIC", "topic")
 MQTT_USER = os.getenv("MQTT_USER", "user")
 MQTT_PASSWORD = os.getenv("MQTT_PASSWORD", "password")
 
-# NATS CONFIG
-NATS_ENABLE = os.getenv("NATS_ENABLE", False)
-NATS_DSN = os.getenv("NATS_DSN", "nats://localhost:4222")
-NATS_CREDETIALS = os.getenv("NATS_CREDETIALS", None)
+# SQS CONFIG
+SQS_ENABLE = os.getenv("SQS_ENABLE", False)
+SQS_URL = os.getenv("SQS_URL", "http://localhost:9324")
+SQS_ACCESS_KEY = os.getenv("SQS_ACESS_KEY", "access_key")
+SQS_SECRET_KEY = os.getenv("SQS_SECRET_KEY", "secret_key")
+SQS_QUEUE_NAME = os.getenv("SQS_QUEUE_NAME", "queue_name")
+SQS_REGION = os.getenv("SQS_REGION", "fr-par")
+
