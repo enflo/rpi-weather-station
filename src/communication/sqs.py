@@ -15,7 +15,6 @@ class SQSClient:
 
     @staticmethod
     def _sqs_client():
-        print(SQS_ACCESS_KEY, SQS_SECRET_KEY)
         return boto3.resource(
             'sqs',
             endpoint_url=SQS_URL,
