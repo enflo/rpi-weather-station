@@ -33,3 +33,12 @@ SQS_SECRET_KEY = os.getenv("SQS_SECRET_KEY", "secret_key")
 SQS_QUEUE_NAME = os.getenv("SQS_QUEUE_NAME", "queue_name")
 SQS_REGION = os.getenv("SQS_REGION", "fr-par")
 
+
+# POSTGRES CONFIG
+POSTGRES_ENABLE = os.getenv("POSTGRES_ENABLE", False)
+POSTGRES_USER = os.getenv("POSTGRES_USER", "postgres")
+POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD", "postgres")
+POSTGRES_HOST = os.getenv("POSTGRES_HOST", "localhost")
+POSTGRES_PORT = os.getenv("POSTGRES_PORT", "5432")
+POSTGRES_DBNAME = os.getenv("POSTGRES_DBNAME", "postgres")
+POSTGRES_TABLE = os.getenv("POSTGRES_TABLE", "weather")
