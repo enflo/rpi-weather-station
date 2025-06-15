@@ -1,8 +1,7 @@
 
 format:
-	./env/bin/black .
-	./env/bin/isort .
-	./env/bin/flake8 .
+	./env/bin/ruff check .
+	./env/bin/ruff format .
 #	./env/bin/mypy .
 
 test:

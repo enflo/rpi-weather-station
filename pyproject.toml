@@ -1,20 +1,24 @@
-[tool.isort]
-profile = "black"
-line_length = 99
-multi_line_output = 3
-skip_gitignore = true
-skip_glob = ["**/migrations/*", "**/settings/*"]
-src_paths = ["**/src"]
+[tool.ruff]
+line-length = 120
+target-version = ["py39", "py310"]
+exclude = [
+    "env",
+    "**/migrations/*",
+    "**/settings/*",
+]
+src = ["**/src"]
 
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+ignore = ["E203"]
 
-[tool.black]
-line-length = 99
-target-version = ['py39', 'py310']
-extend-exclude = '''
-(
-  env
-)
-'''
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "auto"
+
+[tool.ruff.lint.isort]
+case-sensitive = true
 
 [tool.mypy]
 mypy_path = "./src"

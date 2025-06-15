@@ -2,7 +2,7 @@ import json
 
 import paho.mqtt.client as mqtt
 
-from src.settings import MQTT_HOST, MQTT_PASSWORD, MQTT_TOPIC, MQTT_USER
+from src.settings import MQTT_HOST, MQTT_PASSWORD, MQTT_PORT, MQTT_TOPIC, MQTT_USER
 
 
 class SendDataMQTT:
@@ -20,7 +20,7 @@ class SendDataMQTT:
         client = mqtt.Client(transport="websockets")
         client.tls_set()
         client.username_pw_set(MQTT_USER, MQTT_PASSWORD)
-        client.connect(MQTT_HOST, 443, 30)
+        client.connect(MQTT_HOST, int(MQTT_PORT), 30)
         return client
 
     @staticmethod

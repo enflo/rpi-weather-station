@@ -3,7 +3,9 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
-dotenv_path = Path("/home/pi/rpi-weather-station/.env")
+# Look for .env file in the project root directory
+project_root = Path(__file__).parent.parent
+dotenv_path = project_root / ".env"
 load_dotenv(dotenv_path=dotenv_path)
 
 
