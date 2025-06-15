@@ -10,7 +10,6 @@ py-sds011==0.9
 adafruit-circuitpython-dht==4.0.7
 smbus2==0.5.0
 adafruit-circuitpython-bme280==2.6.27
-bme280==0.7
 
 # MQTT
 paho-mqtt==2.1.0

@@ -1,24 +1,31 @@
-import bme280
-import smbus2
+import board
+import adafruit_bme280.advanced as adafruit_bme280
 
 
 class BME280Sensor:
     def __init__(self):
-        self.port = 1
         self.address = 0x77
-        self.bus = smbus2.SMBus(self.port)
+        i2c = board.I2C()  # uses board.SCL and board.SDA
+        self.sensor = adafruit_bme280.Adafruit_BME280_I2C(i2c, address=self.address)
+        # Configure the sensor for higher accuracy
+        self.sensor.sea_level_pressure = 1013.25  # Standard sea level pressure in hPa
+        self.sensor.mode = adafruit_bme280.MODE_NORMAL
+        self.sensor.standby_period = adafruit_bme280.STANDBY_TC_500
+        self.sensor.iir_filter = adafruit_bme280.IIR_FILTER_X16
+        self.sensor.overscan_pressure = adafruit_bme280.OVERSCAN_X16
+        self.sensor.overscan_humidity = adafruit_bme280.OVERSCAN_X1
+        self.sensor.overscan_temperature = adafruit_bme280.OVERSCAN_X2
 
     def get_measurement(self):
-        bme280_data = self._get_data()
         return {
             "sensor_temp_hum": "bme280",
-            "temperature_farenheit": bme280_data.temperature * (9 / 5) + 32,
-            "temperature_celsius": bme280_data.temperature,
-            "humidity": bme280_data.humidity,
-            "pressure": bme280_data.pressure,
+            "temperature_farenheit": self.sensor.temperature * (9 / 5) + 32,
+            "temperature_celsius": self.sensor.temperature,
+            "humidity": self.sensor.humidity,
+            "pressure": self.sensor.pressure,
         }
 
     def _get_data(self):
-        bme280.load_calibration_params(self.bus, self.address)
-        bme280_data = bme280.sample(self.bus, self.address)
-        return bme280_data
+        # This method is kept for compatibility but is no longer needed
+        # as we can access sensor data directly through properties
+        return self.sensor
