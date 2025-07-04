@@ -1,5 +1,9 @@
 # Raspberry Pi Weather Station
 
+![Python](https://img.shields.io/badge/python-3.9%20%7C%203.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-blue)
+![CI](https://github.com/yourusername/rpi-weather-station/workflows/CI/badge.svg?branch=main)
+[![codecov](https://codecov.io/gh/yourusername/rpi-weather-station/branch/main/graph/badge.svg)](https://codecov.io/gh/yourusername/rpi-weather-station)
+
 A comprehensive weather station project for Raspberry Pi that collects data from various sensors and can send it to different destinations like APIs, MQTT brokers, SQS queues, or PostgreSQL databases.
 
 ## Features
@@ -21,6 +25,184 @@ A comprehensive weather station project for Raspberry Pi that collects data from
 - BME280 sensor (for temperature, humidity, and pressure)
 - SDS011 sensor (for air quality measurements)
 - Appropriate wiring and connections
+
+## Hardware Setup
+
+![Weather Station](img/img.png)
+
+### Enabling I2C for BME280 Sensor
+
+The BME280 sensor communicates via I2C protocol, which needs to be enabled on your Raspberry Pi before the sensor can be used.
+
+#### Method 1: Using raspi-config (Recommended)
+
+1. Open the Raspberry Pi configuration tool:
+   ```bash
+   sudo raspi-config
+   ```
+
+2. Navigate to **Interfacing Options** (or **Advanced Options** on older versions)
+
+3. Select **I2C**
+
+4. Choose **Yes** to enable the I2C interface
+
+5. Select **Finish** and reboot your Raspberry Pi:
+   ```bash
+   sudo reboot
+   ```
+
+#### Method 2: Manual Configuration
+
+1. Edit the boot configuration file:
+   ```bash
+   sudo nano /boot/config.txt
+   ```
+
+2. Add or uncomment the following line:
+   ```
+   dtparam=i2c_arm=on
+   ```
+
+3. Edit the modules file:
+   ```bash
+   sudo nano /etc/modules
+   ```
+
+4. Add the following lines if they don't exist:
+   ```
+   i2c-bcm2708
+   i2c-dev
+   ```
+
+5. Reboot your Raspberry Pi:
+   ```bash
+   sudo reboot
+   ```
+
+#### Verify I2C is Working
+
+1. Install I2C tools:
+   ```bash
+   sudo apt-get update
+   sudo apt-get install i2c-tools
+   ```
+
+2. Check if I2C devices are detected:
+   ```bash
+   sudo i2cdetect -y 1
+   ```
+
+3. You should see the BME280 sensor at address `77` (hexadecimal) if it's properly connected:
+   ```
+        0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
+   00:          -- -- -- -- -- -- -- -- -- -- -- -- -- 
+   10: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+   20: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+   30: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+   40: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+   50: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+   60: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+   70: -- -- -- -- -- -- -- 77
+   ```
+
+#### BME280 Wiring
+
+Connect your BME280 sensor to the Raspberry Pi as follows:
+
+| BME280 Pin | Raspberry Pi Pin | Description |
+|------------|------------------|-------------|
+| VCC/VIN    | 3.3V (Pin 1)     | Power supply |
+| GND        | GND (Pin 6)      | Ground |
+| SCL        | GPIO 3 (Pin 5)   | I2C Clock |
+| SDA        | GPIO 2 (Pin 3)   | I2C Data |
+
+**Note**: Some BME280 modules may have different pin labels (VCC vs VIN, etc.). Refer to your specific module's documentation.
+
+### Connecting SDS011 Sensor via USB
+
+The SDS011 sensor connects to the Raspberry Pi via USB using a built-in USB-to-serial converter. This makes the connection much simpler than I2C sensors.
+
+#### Physical Connection
+
+1. Connect the SDS011 sensor to any available USB port on your Raspberry Pi using the provided USB cable.
+
+2. The sensor should be automatically detected and assigned to `/dev/ttyUSB0` (or `/dev/ttyUSB1`, `/dev/ttyUSB2`, etc. if multiple USB serial devices are connected).
+
+#### Verify USB Connection
+
+1. Check if the sensor is detected:
+   ```bash
+   ls /dev/ttyUSB*
+   ```
+
+2. You should see output like:
+   ```
+   /dev/ttyUSB0
+   ```
+
+3. Check device information:
+   ```bash
+   dmesg | grep ttyUSB
+   ```
+
+4. You should see output similar to:
+   ```
+   [  123.456789] usb 1-1.4: ch341-uart converter now attached to ttyUSB0
+   ```
+
+#### Set USB Device Permissions
+
+The application needs permission to access the USB serial device. You can either:
+
+**Option 1: Add user to dialout group (Recommended)**
+```bash
+sudo usermod -a -G dialout $USER
+```
+Then log out and log back in for the changes to take effect.
+
+**Option 2: Set device permissions manually**
+```bash
+sudo chmod 666 /dev/ttyUSB0
+```
+Note: This needs to be done each time the device is reconnected.
+
+#### SDS011 Wiring (Internal)
+
+The SDS011 sensor has an internal USB-to-serial converter, so no external wiring is required. The sensor connects directly via USB cable:
+
+| SDS011 Component | Connection |
+|------------------|------------|
+| USB Connector    | Raspberry Pi USB Port |
+| Power Supply     | 5V via USB |
+| Data Communication | Serial via USB (appears as /dev/ttyUSB0) |
+
+#### Troubleshooting USB Connection
+
+If the sensor is not detected:
+
+1. **Check USB cable**: Ensure you're using a data cable, not just a charging cable.
+
+2. **Check USB ports**: Try different USB ports on the Raspberry Pi.
+
+3. **Check device detection**:
+   ```bash
+   lsusb
+   ```
+   Look for a device with ID similar to `1a86:7523 QinHeng Electronics HL-340 USB-Serial adapter`.
+
+4. **Check kernel modules**:
+   ```bash
+   lsmod | grep ch341
+   ```
+   The `ch341` module should be loaded for most SDS011 sensors.
+
+5. **Manual module loading** (if needed):
+   ```bash
+   sudo modprobe ch341
+   ```
+
+**Note**: The SDS011 sensor may take a few seconds to initialize after being connected. Wait at least 30 seconds after connection before running the application.
 
 ## Installation
 
@@ -165,6 +347,24 @@ When adding new functionality, please also add corresponding tests. Follow these
 3. Use unittest.mock to mock external dependencies
 4. Test both normal operation and error handling
 5. Run the tests to ensure they pass
+
+### Continuous Integration
+
+This project uses GitHub Actions for continuous integration. The workflow automatically runs on push to the main branch and on pull requests:
+
+- **Format Check**: Verifies code formatting using Ruff
+- **Tests**: Runs all tests using pytest
+
+The workflow configuration is located in `.github/workflows/ci.yml`. To run the same checks locally:
+
+```bash
+# Check formatting
+ruff check .
+ruff format --check .
+
+# Run tests
+python -m pytest
+```
 
 ## Contributing
 
