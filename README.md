@@ -3,6 +3,7 @@
 ![Python](https://img.shields.io/badge/python-3.9%20%7C%203.10%20%7C%203.11%20%7C%203.12-blue)
 ![CI](https://github.com/yourusername/rpi-weather-station/workflows/CI/badge.svg?branch=main)
 [![codecov](https://codecov.io/gh/yourusername/rpi-weather-station/branch/main/graph/badge.svg)](https://codecov.io/gh/yourusername/rpi-weather-station)
+[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-donate-yellow.svg)](https://coff.ee/tonifloritf)
 
 A comprehensive weather station project for Raspberry Pi that collects data from various sensors and can send it to different destinations like APIs, MQTT brokers, SQS queues, or PostgreSQL databases.
 
