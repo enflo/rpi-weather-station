@@ -1,7 +1,8 @@
 import json
 
 import boto3
-from src.settings import SQS_REGION, SQS_QUEUE_NAME, SQS_URL, SQS_ACCESS_KEY, SQS_SECRET_KEY
+
+from src.settings import SQS_ACCESS_KEY, SQS_QUEUE_NAME, SQS_REGION, SQS_SECRET_KEY, SQS_URL
 
 
 class SQSClient:
@@ -28,6 +29,6 @@ class SQSClient:
 
     @staticmethod
     def _publish(queue, payload) -> None:
-        if type(payload) is dict:
+        if isinstance(payload, dict):
             payload = json.dumps(payload)
         queue.send_message(MessageBody=payload)

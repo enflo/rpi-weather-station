@@ -1,16 +1,17 @@
 """
 Tests for the BME280Sensor class.
 """
+import sys
+from unittest.mock import MagicMock, patch
+
 import pytest
-from unittest.mock import patch, MagicMock
 
 # Mock the hardware-dependent modules before importing the sensor class
-import sys
 sys.modules['board'] = MagicMock()
 sys.modules['adafruit_bme280'] = MagicMock()
 sys.modules['adafruit_bme280.advanced'] = MagicMock()
 
-from src.sensors.bme280sensor import BME280Sensor
+from src.sensors.bme280sensor import BME280Sensor  # noqa: E402
 
 
 @pytest.fixture

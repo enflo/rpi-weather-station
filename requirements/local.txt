@@ -1,8 +1,7 @@
 -r requirements.txt
 
 # Code Quality & Formatting
-ruff==0.3.4
-mypy==1.9.0
+ruff==0.12.2
 
 # Testing
 pytest==8.3.5

@@ -1,14 +1,15 @@
 """
 Tests for the SDS011Sensor class.
 """
+import sys
+from unittest.mock import MagicMock, patch
+
 import pytest
-from unittest.mock import patch, MagicMock
 
 # Mock the hardware-dependent modules before importing the sensor class
-import sys
 sys.modules['sds011'] = MagicMock()
 
-from src.sensors.sds011sensor import SDS011Sensor
+from src.sensors.sds011sensor import SDS011Sensor  # noqa: E402
 
 
 @pytest.fixture
@@ -25,7 +26,7 @@ def mock_sds011():
 
 def test_init(mock_sds011):
     """Test the initialization of the SDS011Sensor class."""
-    sensor = SDS011Sensor()
+    SDS011Sensor()
 
     # Check that the SDS011 was initialized with the correct device path
     mock_sds011.assert_called_once_with("/dev/ttyUSB0")

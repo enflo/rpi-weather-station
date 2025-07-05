@@ -1,9 +1,9 @@
 """
 Tests for the SendDataAPI class.
 """
-import pytest
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch
 
+import pytest
 from src.communication.api import SendDataAPI
 
 

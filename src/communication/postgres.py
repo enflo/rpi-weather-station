@@ -1,12 +1,12 @@
 import psycopg2
 
 from src.settings import (
-    POSTGRES_USER,
-    POSTGRES_PASSWORD,
-    POSTGRES_HOST,
-    POSTGRES_PORT,
     POSTGRES_DBNAME,
+    POSTGRES_HOST,
+    POSTGRES_PASSWORD,
+    POSTGRES_PORT,
     POSTGRES_TABLE,
+    POSTGRES_USER,
 )
 
 

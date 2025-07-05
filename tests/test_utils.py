@@ -1,7 +1,6 @@
 """
 Tests for utility functions.
 """
-import pytest
 
 from src.utils import celsius_to_fahrenheit, fahrenheit_to_celsius
 

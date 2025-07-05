@@ -1,15 +1,16 @@
 """
 Tests for the DHT22Sensor class.
 """
+import sys
+from unittest.mock import MagicMock, PropertyMock, patch
+
 import pytest
-from unittest.mock import patch, MagicMock, PropertyMock
 
 # Mock the hardware-dependent modules before importing the sensor class
-import sys
 sys.modules['board'] = MagicMock()
 sys.modules['adafruit_dht'] = MagicMock()
 
-from src.sensors.dht22sensor import DHT22Sensor
+from src.sensors.dht22sensor import DHT22Sensor  # noqa: E402
 
 
 @pytest.fixture
@@ -31,7 +32,7 @@ def mock_adafruit_dht():
 
 def test_init(mock_adafruit_dht):
     """Test the initialization of the DHT22Sensor class."""
-    sensor = DHT22Sensor()
+    DHT22Sensor()
 
     # Check that the DHT22 was initialized with the correct pin and use_pulseio=False
     from src.sensors.dht22sensor import adafruit_dht, board

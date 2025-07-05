@@ -1,17 +1,18 @@
 """
 Tests for the main module.
 """
+import sys
+from unittest.mock import MagicMock, patch
+
 import pytest
-from unittest.mock import patch, MagicMock
 
 # Mock the hardware-dependent modules before importing the main module
-import sys
 sys.modules['board'] = MagicMock()
 sys.modules['adafruit_bme280'] = MagicMock()
 sys.modules['adafruit_bme280.advanced'] = MagicMock()
 sys.modules['sds011'] = MagicMock()
 
-from main import get_weather
+from main import get_weather  # noqa: E402
 
 
 @pytest.fixture

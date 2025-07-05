@@ -1,9 +1,9 @@
 """
 Tests for the SendDataPostgres class.
 """
-import pytest
-from unittest.mock import patch, MagicMock, call
+from unittest.mock import MagicMock, patch
 
+import pytest
 from src.communication.postgres import SendDataPostgres
 
 

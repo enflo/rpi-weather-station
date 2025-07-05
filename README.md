@@ -22,9 +22,9 @@ A comprehensive weather station project for Raspberry Pi that collects data from
 
 ## Hardware Requirements
 
-- Raspberry Pi (any model with GPIO pins)
-- BME280 sensor (for temperature, humidity, and pressure)
-- SDS011 sensor (for air quality measurements)
+- [Raspberry Pi 5](https://amzn.to/40qJgHt) (or any model with GPIO pins)
+- [BME280 sensor](https://amzn.to/4lc98yO) (for temperature, humidity, and pressure)
+- [SDS011 sensor](https://amzn.to/45QrGA3) (for air quality measurements)
 - Appropriate wiring and connections
 
 ## Hardware Setup

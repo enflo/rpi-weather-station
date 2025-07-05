@@ -1,9 +1,9 @@
 """
 Tests for the send_data module.
 """
-import pytest
-from unittest.mock import patch, MagicMock
+from unittest.mock import MagicMock, patch
 
+import pytest
 from src.communication.send_data import send_data
 
 

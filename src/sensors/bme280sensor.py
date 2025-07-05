@@ -1,5 +1,5 @@
-import board
 import adafruit_bme280.advanced as adafruit_bme280
+import board
 
 
 class BME280Sensor:

@@ -16,7 +16,8 @@ RPi.GPIO==0.7.1
 paho-mqtt==2.1.0
 
 # SQS
-boto3==1.38.6
+boto3
+boto3-stubs
 
 # PostgreSQL
-psycopg2==2.9.9
+psycopg2-binary==2.9.9
