@@ -1,5 +1,5 @@
 import requests
-from settings import SENSOR_COMMUNITY_SENSOR_ID
+from src.settings import SENSOR_COMMUNITY_SENSOR_ID
 
 
 class SendDataSensorCommunity:
