@@ -1,5 +1,5 @@
 import requests
-from src.settings import SENSOR_COMMUNITY_SENSOR_ID
+from src.settings import SENSOR_COMMUNITY_SENSOR_SDS011_ID, SENSOR_COMMUNITY_SENSOR_BME280_ID
 
 
 class SendDataSensorCommunity:
@@ -10,12 +10,12 @@ class SendDataSensorCommunity:
         api_url = "https://api.sensor.community/v1/push-sensor-data/"
         header_pm = {
             "X-PIN": "1",
-            "X-Sensor": SENSOR_COMMUNITY_SENSOR_ID,
+            "X-Sensor": SENSOR_COMMUNITY_SENSOR_SDS011_ID,
             "Content-Type": "application/json"
         } 
         headers_bme = {
             "X-PIN": "11", # BME280
-            "X-Sensor": SENSOR_COMMUNITY_SENSOR_ID,
+            "X-Sensor": SENSOR_COMMUNITY_SENSOR_BME280_ID,
             "Content-Type": "application/json"
         }
         # Enviar partículas
