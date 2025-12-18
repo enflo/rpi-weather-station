@@ -1,10 +1,12 @@
 import psycopg2
 
 from src.settings import (
+    POSTGRES_CHANNELBINDING,
     POSTGRES_DBNAME,
     POSTGRES_HOST,
     POSTGRES_PASSWORD,
     POSTGRES_PORT,
+    POSTGRES_SSLMODE,
     POSTGRES_TABLE,
     POSTGRES_USER,
 )
@@ -43,7 +45,9 @@ class SendDataPostgres:
             password=POSTGRES_PASSWORD,
             host=POSTGRES_HOST,
             port=POSTGRES_PORT,
-            dbname=POSTGRES_DBNAME
+            dbname=POSTGRES_DBNAME,
+            sslmode=POSTGRES_SSLMODE,
+            channel_binding=POSTGRES_CHANNELBINDING,
         )
     
     def _insert_data(self, cursor):
