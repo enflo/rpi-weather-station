@@ -2,11 +2,13 @@ from src.communication.api import SendDataAPI
 from src.communication.mqtt import SendDataMQTT
 from src.communication.postgres import SendDataPostgres
 from src.communication.sqs import SQSClient
+from src.communication.sensor_community import SendDataSensorCommunity
 from src.settings import (
     API_ENABLE,
     MQTT_ENABLE,
     POSTGRES_ENABLE,
     SQS_ENABLE,
+    SENSOR_COMMUNITY_ENABLE,
 )
 
 
@@ -18,11 +20,13 @@ def send_data(data):
 
     if API_ENABLE:
         SendDataAPI(data).send()
-    elif MQTT_ENABLE:
+    if MQTT_ENABLE:
         SendDataMQTT(data).send()
-    elif SQS_ENABLE:
+    if SQS_ENABLE:
         SQSClient(data).send()
-    elif POSTGRES_ENABLE:
+    if POSTGRES_ENABLE:
         SendDataPostgres(data).send()
-    else:
-        print(data)
+    if SENSOR_COMMUNITY_ENABLE:
+        SendDataSensorCommunity(data).send()
+    
+    print(data)
