@@ -23,6 +23,7 @@ A comprehensive weather station project for Raspberry Pi that collects data from
 ## Hardware Compatibility & Requirements
 
 This project is fully compatible with the following Raspberry Pi models:
+
 - **Raspberry Pi Zero 2 W/WH**
 - **Raspberry Pi 3** (Model B, B+)
 - **Raspberry Pi 4** (Model B - all RAM variants)
@@ -40,6 +41,7 @@ This project is fully compatible with the following Raspberry Pi models:
 > **Note for Raspberry Pi 5 Users:** The new RP1 I/O controller on the Pi 5 requires updated GPIO libraries. This project uses `adafruit-blinka` to abstract these differences, but ensure you are running the latest Raspberry Pi OS (Bookworm) and have installed system dependencies via `scripts/setup.sh`.
 
 ### Hardware Detection
+
 The application automatically detects your Raspberry Pi model on startup and logs it. This ensures that any model-specific configurations (like sleep times or bus speeds) are applied correctly.
 
 ## Hardware Setup
@@ -53,6 +55,7 @@ The BME280 sensor communicates via I2C protocol, which needs to be enabled on yo
 #### Method 1: Using raspi-config (Recommended)
 
 1. Open the Raspberry Pi configuration tool:
+
    ```bash
    sudo raspi-config
    ```
@@ -64,6 +67,7 @@ The BME280 sensor communicates via I2C protocol, which needs to be enabled on yo
 4. Choose **Yes** to enable the I2C interface
 
 5. Select **Finish** and reboot your Raspberry Pi:
+
    ```bash
    sudo reboot
    ```
@@ -71,27 +75,32 @@ The BME280 sensor communicates via I2C protocol, which needs to be enabled on yo
 #### Method 2: Manual Configuration
 
 1. Edit the boot configuration file:
+
    ```bash
    sudo nano /boot/config.txt
    ```
 
 2. Add or uncomment the following line:
+
    ```
    dtparam=i2c_arm=on
    ```
 
 3. Edit the modules file:
+
    ```bash
    sudo nano /etc/modules
    ```
 
 4. Add the following lines if they don't exist:
-   ```
+
+   ```bash
    i2c-bcm2708
    i2c-dev
    ```
 
 5. Reboot your Raspberry Pi:
+
    ```bash
    sudo reboot
    ```
@@ -99,17 +108,20 @@ The BME280 sensor communicates via I2C protocol, which needs to be enabled on yo
 #### Verify I2C is Working
 
 1. Install I2C tools:
+
    ```bash
    sudo apt-get update
    sudo apt-get install i2c-tools
    ```
 
 2. Check if I2C devices are detected:
+
    ```bash
    sudo i2cdetect -y 1
    ```
 
 3. You should see the BME280 sensor at address `77` (hexadecimal) if it's properly connected:
+
    ```
         0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
    00:          -- -- -- -- -- -- -- -- -- -- -- -- -- 
@@ -126,12 +138,12 @@ The BME280 sensor communicates via I2C protocol, which needs to be enabled on yo
 
 Connect your BME280 sensor to the Raspberry Pi as follows:
 
-| BME280 Pin | Raspberry Pi Pin | Description |
-|------------|------------------|-------------|
+| BME280 Pin | Raspberry Pi Pin | Description  |
+|------------|------------------|--------------|
 | VCC/VIN    | 3.3V (Pin 1)     | Power supply |
-| GND        | GND (Pin 6)      | Ground |
-| SCL        | GPIO 3 (Pin 5)   | I2C Clock |
-| SDA        | GPIO 2 (Pin 3)   | I2C Data |
+| GND        | GND (Pin 6)      | Ground       |
+| SCL        | GPIO 3 (Pin 5)   | I2C Clock    |
+| SDA        | GPIO 2 (Pin 3)   | I2C Data     |
 
 **Note**: Some BME280 modules may have different pin labels (VCC vs VIN, etc.). Refer to your specific module's documentation.
 
@@ -148,22 +160,26 @@ The SDS011 sensor connects to the Raspberry Pi via USB using a built-in USB-to-s
 #### Verify USB Connection
 
 1. Check if the sensor is detected:
+
    ```bash
    ls /dev/ttyUSB*
    ```
 
 2. You should see output like:
-   ```
+
+   ```bash
    /dev/ttyUSB0
    ```
 
 3. Check device information:
+
    ```bash
    dmesg | grep ttyUSB
    ```
 
 4. You should see output similar to:
-   ```
+
+   ```bash
    [  123.456789] usb 1-1.4: ch341-uart converter now attached to ttyUSB0
    ```
 
@@ -172,26 +188,30 @@ The SDS011 sensor connects to the Raspberry Pi via USB using a built-in USB-to-s
 The application needs permission to access the USB serial device. You can either:
 
 **Option 1: Add user to dialout group (Recommended)**
+
 ```bash
 sudo usermod -a -G dialout $USER
 ```
+
 Then log out and log back in for the changes to take effect.
 
 **Option 2: Set device permissions manually**
+
 ```bash
 sudo chmod 666 /dev/ttyUSB0
 ```
+
 Note: This needs to be done each time the device is reconnected.
 
 #### SDS011 Wiring (Internal)
 
 The SDS011 sensor has an internal USB-to-serial converter, so no external wiring is required. The sensor connects directly via USB cable:
 
-| SDS011 Component | Connection |
-|------------------|------------|
-| USB Connector    | Raspberry Pi USB Port |
-| Power Supply     | 5V via USB |
-| Data Communication | Serial via USB (appears as /dev/ttyUSB0) |
+| SDS011 Component   | Connection                                 |
+|--------------------|--------------------------------------------|
+| USB Connector      | Raspberry Pi USB Port                      |
+| Power Supply       | 5V via USB                                 |
+| Data Communication | Serial via USB (appears as /dev/ttyUSB0)   |
 
 #### Troubleshooting USB Connection
 
@@ -202,18 +222,21 @@ If the sensor is not detected:
 2. **Check USB ports**: Try different USB ports on the Raspberry Pi.
 
 3. **Check device detection**:
+   
    ```bash
    lsusb
    ```
    Look for a device with ID similar to `1a86:7523 QinHeng Electronics HL-340 USB-Serial adapter`.
 
 4. **Check kernel modules**:
+   
    ```bash
    lsmod | grep ch341
    ```
    The `ch341` module should be loaded for most SDS011 sensors.
 
 5. **Manual module loading** (if needed):
+   
    ```bash
    sudo modprobe ch341
    ```
@@ -272,10 +295,12 @@ All configuration is done through environment variables in the `.env` file. See 
 ### Environment Variables
 
 #### General Configuration
+
 - `ENVIRONMENT`: Set to "development" or "production" (default: "development")
 - `LOOP_TIME`: Time in seconds between sensor readings (default: 1)
 
 #### API Configuration
+
 - `API_ENABLE`: Enable/disable API integration (default: False)
 - `API_METHOD`: HTTP method for API requests (default: "POST")
 - `API_HOST`: API host URL (default: "localhost")
@@ -283,6 +308,7 @@ All configuration is done through environment variables in the `.env` file. See 
 - `API_URL_TOKEN`: API URL token (default: "")
 
 #### MQTT Configuration
+
 - `MQTT_ENABLE`: Enable/disable MQTT integration (default: False)
 - `MQTT_HOST`: MQTT broker host (default: "localhost")
 - `MQTT_PORT`: MQTT broker port (default: 1883)
@@ -291,6 +317,7 @@ All configuration is done through environment variables in the `.env` file. See 
 - `MQTT_PASSWORD`: MQTT password (default: "password")
 
 #### SQS Configuration
+
 - `SQS_ENABLE`: Enable/disable SQS integration (default: False)
 - `SQS_URL`: SQS URL (default: "http://localhost:9324")
 - `SQS_ACCESS_KEY`: SQS access key (default: "access_key")
@@ -299,6 +326,7 @@ All configuration is done through environment variables in the `.env` file. See 
 - `SQS_REGION`: SQS region (default: "fr-par")
 
 #### PostgreSQL Configuration
+
 - `POSTGRES_ENABLE`: Enable/disable PostgreSQL integration (default: False)
 - `POSTGRES_USER`: PostgreSQL username (default: "postgres")
 - `POSTGRES_PASSWORD`: PostgreSQL password (default: "postgres")
