@@ -20,12 +20,27 @@ A comprehensive weather station project for Raspberry Pi that collects data from
 - Configurable measurement intervals
 - Runs as a system service
 
-## Hardware Requirements
+## Hardware Compatibility & Requirements
 
-- [Raspberry Pi 5](https://amzn.to/40qJgHt) (or any model with GPIO pins)
-- [BME280 sensor](https://amzn.to/4lc98yO) (for temperature, humidity, and pressure)
-- [SDS011 sensor](https://amzn.to/45QrGA3) (for air quality measurements)
-- Appropriate wiring and connections
+This project is fully compatible with the following Raspberry Pi models:
+- **Raspberry Pi Zero 2 W/WH**
+- **Raspberry Pi 3** (Model B, B+)
+- **Raspberry Pi 4** (Model B - all RAM variants)
+- **Raspberry Pi 5** (all RAM variants)
+
+### Model-Specific Considerations
+
+| Feature | Pi Zero 2 W | Pi 3 (B/B+) | Pi 4 | Pi 5 |
+|---------|-------------|-------------|------|------|
+| **GPIO Backend** | `RPi.GPIO` | `RPi.GPIO` | `RPi.GPIO` | `lgpio` / `blinka` |
+| **Performance** | Good | Very Good | Excellent | Overkill |
+| **I2C Setup** | Standard | Standard | Standard | Standard |
+| **OS Support** | Bullseye/Bookworm | Bullseye/Bookworm | Bullseye/Bookworm | Bookworm (Required) |
+
+> **Note for Raspberry Pi 5 Users:** The new RP1 I/O controller on the Pi 5 requires updated GPIO libraries. This project uses `adafruit-blinka` to abstract these differences, but ensure you are running the latest Raspberry Pi OS (Bookworm) and have installed system dependencies via `scripts/setup.sh`.
+
+### Hardware Detection
+The application automatically detects your Raspberry Pi model on startup and logs it. This ensures that any model-specific configurations (like sleep times or bus speeds) are applied correctly.
 
 ## Hardware Setup
 

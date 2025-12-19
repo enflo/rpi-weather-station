@@ -1,3 +1,4 @@
+import re
 import psycopg2
 
 from src.settings import (
@@ -37,6 +38,7 @@ class SendDataPostgres:
             
         except Exception as e:
             print(f"Failed to send data to PostgreSQL: {e}")
+            raise e
 
     def _get_connection(self):
         """Create and return a database connection."""
@@ -54,6 +56,12 @@ class SendDataPostgres:
         """Insert data into the database."""
         # Get column names and values from the data dictionary
         columns = list(self.data.keys())
+        
+        # Validate column names to prevent SQL injection
+        for col in columns:
+            if not re.match(r"^[a-zA-Z0-9_]+$", col):
+                raise ValueError(f"Invalid column name: {col}")
+
         values = [self.data[column] for column in columns]
         
         # Build the SQL query

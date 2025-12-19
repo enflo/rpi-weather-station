@@ -15,37 +15,28 @@ sys.modules['sds011'] = MagicMock()
 from main import get_weather  # noqa: E402
 
 
-@pytest.fixture
-def mock_sensors():
-    """Fixture to mock the sensor classes."""
-    with patch('main.SDS011Sensor') as mock_sds, \
-         patch('main.BME280Sensor') as mock_bme:
-        # Configure the mock sensors
-        mock_sds_instance = MagicMock()
-        mock_sds_instance.get_measurement.return_value = {
-            "sensor_air_quality": "sds011",
-            "pm25": 10.5,
-            "pm10": 25.0,
-        }
-        mock_sds.return_value = mock_sds_instance
-
-        mock_bme_instance = MagicMock()
-        mock_bme_instance.get_measurement.return_value = {
-            "sensor_temp_hum": "bme280",
-            "temperature_farenheit": 77.0,
-            "temperature_celsius": 25.0,
-            "humidity": 50.0,
-            "pressure": 1013.25,
-        }
-        mock_bme.return_value = mock_bme_instance
-
-        yield
-
-
 @patch('main.time.time', return_value=1234567890.0)
-def test_get_weather(mock_time, mock_sensors):
+def test_get_weather(mock_time):
     """Test the get_weather function."""
-    result = get_weather()
+    
+    # Create mock sensors
+    mock_sds = MagicMock()
+    mock_sds.get_measurement.return_value = {
+        "sensor_air_quality": "sds011",
+        "pm25": 10.5,
+        "pm10": 25.0,
+    }
+    
+    mock_bme = MagicMock()
+    mock_bme.get_measurement.return_value = {
+        "sensor_temp_hum": "bme280",
+        "temperature_farenheit": 77.0,
+        "temperature_celsius": 25.0,
+        "humidity": 50.0,
+        "pressure": 1013.25,
+    }
+
+    result = get_weather(mock_sds, mock_bme)
 
     # Check that the result contains the expected keys
     assert "timestamp" in result
@@ -68,3 +59,4 @@ def test_get_weather(mock_time, mock_sensors):
     assert result["temperature_celsius"] == 25.0
     assert result["humidity"] == 50.0
     assert result["pressure"] == 1013.25
+

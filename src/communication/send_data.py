@@ -1,3 +1,5 @@
+import logging
+
 from src.communication.api import SendDataAPI
 from src.communication.mqtt import SendDataMQTT
 from src.communication.postgres import SendDataPostgres
@@ -11,6 +13,8 @@ from src.settings import (
     SENSOR_COMMUNITY_ENABLE,
 )
 
+logger = logging.getLogger(__name__)
+
 
 def send_data(data):
     """
@@ -19,14 +23,33 @@ def send_data(data):
     """
 
     if API_ENABLE:
-        SendDataAPI(data).send()
+        try:
+            SendDataAPI(data).send()
+        except Exception as e:
+            logger.error(f"Failed to send data to API: {e}")
+
     if MQTT_ENABLE:
-        SendDataMQTT(data).send()
+        try:
+            SendDataMQTT(data).send()
+        except Exception as e:
+            logger.error(f"Failed to send data to MQTT: {e}")
+
     if SQS_ENABLE:
-        SQSClient(data).send()
+        try:
+            SQSClient(data).send()
+        except Exception as e:
+            logger.error(f"Failed to send data to SQS: {e}")
+
     if POSTGRES_ENABLE:
-        SendDataPostgres(data).send()
+        try:
+            SendDataPostgres(data).send()
+        except Exception as e:
+            logger.error(f"Failed to send data to Postgres: {e}")
+
     if SENSOR_COMMUNITY_ENABLE:
-        SendDataSensorCommunity(data).send()
+        try:
+            SendDataSensorCommunity(data).send()
+        except Exception as e:
+            logger.error(f"Failed to send data to Sensor Community: {e}")
     
-    print(data)
+    logger.info(f"Data processed: {data}")

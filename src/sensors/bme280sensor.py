@@ -1,6 +1,8 @@
 import adafruit_bme280.advanced as adafruit_bme280
 import board
 
+from src.utils import celsius_to_fahrenheit
+
 
 class BME280Sensor:
     def __init__(self):
@@ -19,7 +21,7 @@ class BME280Sensor:
     def get_measurement(self):
         return {
             "sensor_temp_hum": "bme280",
-            "temperature_farenheit": self.sensor.temperature * (9 / 5) + 32,
+            "temperature_farenheit": celsius_to_fahrenheit(self.sensor.temperature),
             "temperature_celsius": self.sensor.temperature,
             "humidity": self.sensor.humidity,
             "pressure": self.sensor.pressure,

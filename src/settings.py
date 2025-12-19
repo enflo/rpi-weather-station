@@ -1,3 +1,4 @@
+import json
 import os
 from pathlib import Path
 
@@ -27,6 +28,13 @@ API_ENABLE = get_bool_env("API_CONFIG", False)
 API_METHOD = os.getenv("API_METHOD", "POST")
 API_HOST = os.getenv("API_HOST", "localhost")
 API_HEADER_TOKEN = os.getenv("API_HEADER_TOKEN", None)
+if API_HEADER_TOKEN:
+    try:
+        API_HEADER_TOKEN = json.loads(API_HEADER_TOKEN)
+    except (json.JSONDecodeError, TypeError):
+        # Fallback: assume it's an Authorization token
+        API_HEADER_TOKEN = {"Authorization": f"Bearer {API_HEADER_TOKEN}"}
+
 API_URL_TOKEN = os.getenv("API_URL_TOKEN", "")
 
 # MQTT CONFIG
