@@ -4,7 +4,7 @@ import time
 from src.communication.send_data import send_data
 from src.sensors.bme280sensor import BME280Sensor
 from src.sensors.sds011sensor import SDS011Sensor
-from src.settings import LOOP_TIME
+from src.settings import LOOP_TIME, LOOP_ENABLED
 from src.hardware import get_rpi_model
 
 # Configure logging
@@ -13,6 +13,13 @@ logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
 )
 logger = logging.getLogger(__name__)
+
+def process_data(sds_sensor, bme_sensor) -> None:
+    try:
+        result = get_weather(sds_sensor, bme_sensor)
+        send_data(result)
+    except Exception as e:
+        logger.error(f"Error in main loop: {e}")
 
 
 def get_weather(sds_sensor, bme_sensor) -> dict:
@@ -57,11 +64,9 @@ if __name__ == "__main__":
         logger.error(f"Failed to initialize BME280Sensor: {e}")
         bme_sensor = None
 
-    while True:
-        try:
-            result = get_weather(sds_sensor, bme_sensor)
-            send_data(result)
-        except Exception as e:
-            logger.error(f"Error in main loop: {e}")
-            
-        time.sleep((LOOP_TIME * 60 * 60) / 4)  # 15 minutes
+    if LOOP_ENABLED:
+        while True:
+            process_data(sds_sensor, bme_sensor)
+            time.sleep((LOOP_TIME * 60 * 60) / 4)  # 15 minutes
+    else:
+        process_data(sds_sensor, bme_sensor)

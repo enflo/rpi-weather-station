@@ -22,6 +22,7 @@ def get_bool_env(key, default=False):
 
 ENVIRONMENT = os.getenv("ENVIRONMENT", "development")
 LOOP_TIME = int(os.getenv("LOOP_TIME", 1))
+LOOP_ENABLED = get_bool_env("LOOP_ENABLED", False)
 
 # API CONFIG
 API_ENABLE = get_bool_env("API_CONFIG", False)
