@@ -17,6 +17,7 @@ A comprehensive weather station project for Raspberry Pi that collects data from
   - MQTT brokers
   - AWS SQS queues
   - PostgreSQL databases
+  - InfluxDB v2
 - Configurable measurement intervals
 - Runs as a system service
 
@@ -334,6 +335,26 @@ All configuration is done through environment variables in the `.env` file. See 
 - `POSTGRES_PORT`: PostgreSQL port (default: "5432")
 - `POSTGRES_DBNAME`: PostgreSQL database name (default: "postgres")
 - `POSTGRES_TABLE`: PostgreSQL table name for storing data (default: "weather_data")
+
+#### InfluxDB Configuration
+
+- `INFLUXDB_ENABLE`: Enable/disable InfluxDB integration (default: False)
+- `INFLUXDB_URL`: InfluxDB URL (default: "http://localhost:8086")
+- `INFLUXDB_TOKEN`: Authentication token (default: "my-token")
+- `INFLUXDB_ORG`: Organization name (default: "my-org")
+- `INFLUXDB_BUCKET`: Bucket name (default: "weather")
+- `INFLUXDB_TIMEOUT`: Timeout in milliseconds (default: 10000)
+- `INFLUXDB_VERIFY_SSL`: Verify SSL certificate (default: True)
+
+**Backup and Recovery (InfluxDB):**
+To backup your InfluxDB data, use the standard InfluxDB backup command:
+```bash
+influx backup /path/to/backup/dir -t <your-token>
+```
+To restore:
+```bash
+influx restore /path/to/backup/dir -t <your-token>
+```
 
 ## Usage
 

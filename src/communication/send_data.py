@@ -5,12 +5,14 @@ from src.communication.mqtt import SendDataMQTT
 from src.communication.postgres import SendDataPostgres
 from src.communication.sqs import SQSClient
 from src.communication.sensor_community import SendDataSensorCommunity
+from src.communication.influxdb import SendDataInfluxDB
 from src.settings import (
     API_ENABLE,
     MQTT_ENABLE,
     POSTGRES_ENABLE,
     SQS_ENABLE,
     SENSOR_COMMUNITY_ENABLE,
+    INFLUXDB_ENABLE,
 )
 
 logger = logging.getLogger(__name__)
@@ -51,5 +53,11 @@ def send_data(data):
             SendDataSensorCommunity(data).send()
         except Exception as e:
             logger.error(f"Failed to send data to Sensor Community: {e}")
+
+    if INFLUXDB_ENABLE:
+        try:
+            SendDataInfluxDB(data).send()
+        except Exception as e:
+            logger.error(f"Failed to send data to InfluxDB: {e}")
     
     logger.info(f"Data processed: {data}")
