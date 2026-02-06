@@ -1,7 +1,9 @@
 import logging
 import time
+import sys
 
 from src.communication.send_data import send_data
+from src.communication.influxdb import close_influxdb_client
 from src.sensors.bme280sensor import BME280Sensor
 from src.sensors.sds011sensor import SDS011Sensor
 from src.settings import LOOP_TIME, LOOP_ENABLED
@@ -65,8 +67,16 @@ if __name__ == "__main__":
         bme_sensor = None
 
     if LOOP_ENABLED:
-        while True:
-            process_data(sds_sensor, bme_sensor)
-            time.sleep((LOOP_TIME * 60 * 60) / 4)  # 15 minutes
+        try:
+            while True:
+                process_data(sds_sensor, bme_sensor)
+                time.sleep((LOOP_TIME * 60 * 60) / 4)  # 15 minutes
+        except KeyboardInterrupt:
+            logger.info("Stopping Weather Station...")
+        finally:
+            close_influxdb_client()
     else:
-        process_data(sds_sensor, bme_sensor)
+        try:
+            process_data(sds_sensor, bme_sensor)
+        finally:
+            close_influxdb_client()

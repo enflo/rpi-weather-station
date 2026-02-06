@@ -22,6 +22,15 @@ logger = logging.getLogger(__name__)
 
 _influx_wrapper_instance = None
 
+def close_influxdb_client():
+    """
+    Helper function to close the InfluxDB client instance if it exists.
+    """
+    global _influx_wrapper_instance
+    if _influx_wrapper_instance:
+        logger.info("Closing InfluxDB client...")
+        _influx_wrapper_instance.close()
+
 class InfluxDBWrapper:
     """
     Wrapper for InfluxDB client with batch processing, retries and error handling.
