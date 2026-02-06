@@ -12,6 +12,14 @@ sys.modules["influxdb_client.rest"] = MagicMock()
 import pytest
 from src.communication.influxdb import InfluxDBWrapper, SendDataInfluxDB
 
+@pytest.fixture(autouse=True)
+def reset_singleton():
+    """Reset the singleton instance before each test."""
+    from src.communication import influxdb
+    influxdb._influx_wrapper_instance = None
+    yield
+    influxdb._influx_wrapper_instance = None
+
 @pytest.fixture
 def sample_data():
     return {

@@ -1,5 +1,6 @@
 import logging
 import time
+import atexit
 from datetime import datetime
 from typing import Dict, List, Optional, Union, Any
 
@@ -19,13 +20,25 @@ from src.settings import (
 
 logger = logging.getLogger(__name__)
 
+_influx_wrapper_instance = None
 
 class InfluxDBWrapper:
     """
     Wrapper for InfluxDB client with batch processing, retries and error handling.
+    Implemented as a Singleton to ensure connection reuse and proper cleanup.
     """
 
+    def __new__(cls):
+        global _influx_wrapper_instance
+        if _influx_wrapper_instance is None:
+            _influx_wrapper_instance = super(InfluxDBWrapper, cls).__new__(cls)
+            _influx_wrapper_instance._initialized = False
+        return _influx_wrapper_instance
+
     def __init__(self):
+        if getattr(self, "_initialized", False):
+            return
+        
         self.url = INFLUXDB_URL
         self.token = INFLUXDB_TOKEN
         self.org = INFLUXDB_ORG
@@ -35,6 +48,9 @@ class InfluxDBWrapper:
         self._client: Optional[InfluxDBClient] = None
         self._write_api = None
         self._query_api = None
+        
+        self._initialized = True
+        atexit.register(self.close)
 
     def connect(self):
         """
